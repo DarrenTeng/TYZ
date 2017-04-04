@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to VDC</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/GetVMList", success: function (result) {
+                    $("#div1").text(result);
+                    $.each(JSON.parse(result), function (index, value) {
+                        if(index == "data")
+                        {
+                            for (var i = 0; i < value.length; i++)
+                            {
+                                var text1 = document.getElementById("vmtable");
+                                var node = document.createElement("tr");
+                                var text2 = text1.appendChild(node);
+                                var node1 = document.createElement("td");
+                                var column1=text2.appendChild(node1);
+                                column1.innerHTML = value[i].name;
+                                node1 = document.createElement("td");
+                                var column2 = text2.appendChild(node1);
+                                column2.innerHTML = value[i].status;
+                                node1 = document.createElement("td");
+                                var column3 = text2.appendChild(node1);
+                                column3.innerHTML = value[i].owner;
+                                node1 = document.createElement("td");
+                                var column4 = text2.appendChild(node1);
+                                column4.innerHTML = value[i].uuid;
+                                node1 = document.createElement("td");
+                                var column5 = text2.appendChild(node1);
+                                column5.innerHTML = value[i].hostname;
+                                node1 = document.createElement("td");
+                                var column6 = text2.appendChild(node1);
+                                column6.innerHTML = value[i].ip;
+                                node1 = document.createElement("td");
+                                var column7 = text2.appendChild(node1);
+                                column7.innerHTML = value[i].account;
+                            }
+                        }
+                        
+                    });
+                }
+            });
+        });
+     </script>
+</head>
+<body>
+    <div style="text-align:right">
+        <a href="">{{username}}</a>
+        <span> | </span>
+        <a href="/user/signout">Logout</a>
+        <span> | </span>
+        <a href="/delVMItem">All VMs</a>
+        <span> | </span>
+        <a href="/help">Help</a>
+        <span> | </span>
+        <a href="/newVM">New VM</a>
+    </div>
+
+
+	<div id="content" style="background-color:#EEEEEE;height:600px;width:1000px;float:left;">
+		<table id="vmtable" border="1">
+			<tr>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Owner</th>
+				<th>uuid</th>
+				<th>hostname</th>
+				<th>ip</th>
+				<th>account</th>
+			</tr>
+			{% for vm in VMs %}
+				<tr>
+					<td>{{vm.name}}</td>
+					<td>{{vm.status}}</td>
+					<td>{{vm.owner}}</td>
+					<td>{{vm.uuid}}</td>
+					<td>{{vm.hostname}}</td>
+					<td>{{vm.ip}}</td>
+					<td>{{vm.account}}</td>
+				</tr>
+			{% endfor %}
+
+		</table>
+        <div id="div1"></div>
+        <div id="div2"></div>
+	</div>
+    
+    <hr />
+</body>
+</html>
+<!--
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Flask</h1>
+    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Flask gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://flask.pocoo.org/docs/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>The Python Package Index is a repository of software for the Python programming language.</p>
+        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Microsoft Azure</h2>
+        <p>You can easily publish to Microsoft Azure using Python Tools for Visual Studio. Find out how you can host your application using a free trial today.</p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+{% endblock %}
+-->

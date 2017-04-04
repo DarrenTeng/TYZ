@@ -1,0 +1,108 @@
+<html>
+<header>
+<style>
+div 
+{
+
+}
+div.debug1
+{
+	visibility: hidden;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+    $(document).ready(function () {
+		alert("skskskdkdsfkdsksd")
+		$("#create").click(function () {
+		    $.ajax({url: "/getCurrentUser", success: function(result){
+		        $("#div3").text(result);
+		    }});
+		});
+	$( "#test" ).click(function() {
+		$.ajax({url: "/GetVMList", success: function(result){
+			$("#div1").text(result);
+			var output = '';
+			$.each(JSON.parse(result), function (index, value) {
+			    output += '<li id="' + value.uuid + '" powerState="'+ value.staus +'"><a href="#" >' + value.name + '</a></li>';
+			});
+			$('#VMList').html(output).listview("refresh");    
+			$("#div2").text(output);
+		}});
+	});
+
+	$('#VMList').on('click', 'li', function () {
+	    var VMID = $(this).attr('id'); // id of clicked li by directly accessing DOMElement property
+	    var data = {};
+	    data['uuid'] = VMID;
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/Create",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function (result) {
+	            alert(result);
+	        }
+	    });
+
+	});
+	
+	$('#VMList1').on('click', 'li', function () {
+	    var VMID = $(this).attr('id'); // id of clicked li by directly accessing DOMElement property
+
+	    var data = {};
+	    data['uuid'] = VMID;
+
+	    var powerState = $(this).attr('powerState');
+
+	    alert(powerState);
+	    var cmd = "";
+	    if (powerState == 'poweredOn') {
+	        cmd = "/PowerOff"
+	        $(this).attr('powerState', 'poweredOff')
+	    }
+	    else {
+	        cmd = "/PowerOn"
+	        $(this).attr('powerState', 'poweredOn')
+
+	    }
+
+	    $.ajax({
+	        type: "POST",
+	        url: cmd,
+	        data: JSON.stringify(data),
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function (result) {
+	            alert(result);
+	        }
+	    });
+
+	    
+
+	});
+
+});
+</script>
+</header>
+<body>
+
+  <div data-role="main" class="ui-content">
+    <h2>VM List:</h2>
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" id="VMList"></ul>
+    </div>
+  </div>
+  
+<div class="debug" id="div1">div1</div> <div class="debug" id="div2">div2</div>
+    
+    
+<div class="debug" id="div3">div3</div>
+
+<button id="test">test </button>
+    <button id="create">Create</button>
+</body> 
+</html>

@@ -1,0 +1,335 @@
+﻿
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" id="MoveToModal" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="H1">Move VM to</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label" for="username">User name</label>
+                                    <input id="username" class="form-control" type="text" ng-model="MoveToUserName" />
+                                </div>
+                                <div ng-app="" ng-init="MoveTo.ErrorMsg=''" ng-show="MoveTo.isvilidate">
+                                    <p style="color:red" ng-model="MoveTo.ErrorMsg"><strong>Error: </strong>{{MoveTo.ErrorMsg}}</p>
+                                </div>.
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="confirmMoveTo()">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" ng-show="mode == 'showList'">
+        <table class="table table-hover table-bordered">
+            <caption>Virtual Machines:</caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>location</th>
+                    <th>DNS Name</th>
+                    <th>IP address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'selected':selectedRow==$index}" ng-repeat="Item in MyVDSList" ng-click="changeStatus($index)">
+                    <td><a href="" ng-click="showDetail(Item)">{{Item.name}}</a></td>
+                    <td>{{Item.status}}</td>
+                    <td>{{Item.hostname}}</td>
+                    <td>{{Item.dnsname}}</td>
+                    <td>{{Item.ip}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--create new image-->
+    <div class="row" ng-show="mode == 'create'">
+        <div ng-init="Memory='512MB' ;DomainNarr='Work Group'; vCPU='4'; Storage='32GB'; getLanguageList='English (US)'">
+        
+            <form class="form-horizontal">
+
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[ProjectNameActive]">
+                    <label class="col-sm-2 control-label">Project Name</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="ProjectName">
+                            <option value="">--please choose--</option>
+                            <option>Factory Talk Service Platform</option>
+                            <option>Factory Talk View SE</option>
+                            <option>Factory Talk View ME</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[GuestOsActive]">
+                    <label class="col-sm-2 control-label">Guest OS</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="Guest_Os">
+                            <option value="">--please choose--</option>
+                            <option ng-repeat="Item in MyGuestOsNameList">{{Item.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group " ng-show="version(Guest_Os)">
+                    <label class="col-sm-2 control-label">Guest Os Version</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="Guest_Os_Version">
+                            <option value="">--please choose--</option>
+                            <option ng-repeat="Item in MyOsVersionList">{{Item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[DNSNameActive]">
+                    <label class="col-sm-2 control-label">DNS Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="DNS_Name" placeholder="please input DNS Name" />
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[DomainNarrActive]">
+                    <label class="col-sm-2 control-label">Domain Narr</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="DomainNarr">
+                            <option>Work Group</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[vCPUActive]">
+                    <label class="col-sm-2 control-label">vCPU</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="vCPU">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[LanguageActive]">
+                    <label class="col-sm-2 control-label">Language</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="getLanguageList">
+                            <option ng-repeat="Item in LanguageList">{{Item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[MemoryActive]">
+                    <label class="col-sm-2 control-label">Memory</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="Memory">
+                            <option>256MB</option>
+                            <option>512MB</option>
+                            <option>1024MB</option>
+                            <option>2GB</option>
+                            <option>3GB</option>
+                            <option>4GB</option>
+                            <option>6GB</option>
+                            <option>8GB</option>
+                            <option>12GB</option>
+                            <option>16GB</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[StorageActive]">
+                    <label class="col-sm-2 control-label">Storage</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="Storage">
+                            <option>16GB</option>
+                            <option>24GB</option>
+                            <option>32GB</option>
+                            <option>40GB</option>
+                            <option>60GB</option>
+                            <option>80GB</option>
+                            <option>120GB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[UsernameActive]">
+                    <label class="col-sm-2 control-label">User Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="User_Name" placeholder="please input User Name" />
+                    </div>
+                </div>
+
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[PasswordActive]">
+                    <label class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="password" ng-model="Password" placeholder="please input Password" />
+                    </div>
+                </div>
+                <div ng-class="{true: 'form-group', false: 'form-group has-error'}[ConfirmPasswordActive]">
+                    <label class="col-sm-2 control-label">Confirmed Password</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="password" ng-model="Confirm_Password" placeholder="please input Conform Password" />
+                    </div>
+                </div>
+                <div class="form-group" style="float:right;">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="CreateNewVirtualMachine()">Create</button>
+                        <button type="button" class="btn btn-default" ng-click="Back()">Back</button>
+                    </div>
+                </div>
+
+            </form>
+        
+
+    </div>
+    </div>
+
+    <!--Show detail-->
+    <div class="row" ng-show="mode == 'detail'">
+        <h4>AVCNDAENQWANG1</h4>
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default active">DASHBOARD</button>
+                    </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">MONITOR</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">CONFIGURE</button>
+                </div>
+            </div>
+        <div>
+
+            <div id="graph">Loading graph...</div>
+
+            <script type="text/javascript">
+	var myData = new Array([1996, 22], [1997, 36], [1998, 37], [1999, 45], [2000, 50], [2001, 55], [2002, 61], [2003, 61], [2004, 62], [2005, 66], [2006, 73]);
+	var myChart = new JSChart('graph', 'line');
+	myChart.setDataArray(myData);
+	myChart.setTitle('Percentage of U.S. Adults Online');
+	myChart.setTitleColor('#8E8E8E');
+	myChart.setTitleFontSize(11);
+	myChart.setAxisNameX('');
+	myChart.setAxisNameY('');
+	myChart.setAxisColor('#C4C4C4');
+	myChart.setAxisValuesColor('#343434');
+	myChart.setAxisPaddingLeft(100);
+	myChart.setAxisPaddingRight(120);
+	myChart.setAxisPaddingTop(50);
+	myChart.setAxisPaddingBottom(40);
+	myChart.setAxisValuesNumberX(6);
+	myChart.setGraphExtend(true);
+	myChart.setGridColor('#c2c2c2');
+	myChart.setLineWidth(6);
+	myChart.setLineColor('#9F0505');
+	myChart.setSize(1200, 321);
+	myChart.setBackgroundImage('chart_bg.jpg');
+	myChart.draw();
+            </script>
+
+                </div>
+        <div class="row clearfix">
+
+            <div class="panel col-md-6  panel-default">
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Guest OS:</dt>
+                        <dd>Microsoft Windows 10 Enterprise(64-bit)</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Guest OS Version:</dt>
+                        <dd>1607</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>VM Type:</dt>
+                        <dd>VMware</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>CPU:</dt>
+                        <dd>4 VCPU</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Memory:</dt>
+                        <dd>8192MB</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>IP Address:</dt>
+                        <dd>10.224.105.50</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>DNS Name:</dt>
+                        <dd>avcndoenqwang1 ra-int.com</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Status:</dt>
+                        <dd>Running</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Host Name:</dt>
+                        <dd>AVCBDAEBQWANG1</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Location:</dt>
+                        <dd>10.224.105.238</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>UUID:</dt>
+                        <dd>150dasd0151dsa-dsa10</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Created:</dt>
+                        <dd>10/19/2016 14:05:15</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Last Modified:</dt>
+                        <dd>10/31/2016 07:05:30</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Last Updated:</dt>
+                        <dd>10/31/2016 10:30:15</dd>
+                    </dl>
+
+            </div>
+
+                </div>
+            <div class="col-md-1">
+            </div>
+            <div class="panel col-md-5  panel-default">
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Consumed Host CPU:</dt>
+                        <dd>49 MHz</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Consumed Host Memory:</dt>
+                        <dd>3756.00 MHz</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Active Guest Memory:</dt>
+                        <dd>204.00 MHz</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Provisioned Storage:</dt>
+                        <dd>84.78 GB</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Not-shared Storage:</dt>
+                        <dd>17.49 GB</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Used Storage:</dt>
+                        <dd>22.27 GB</dd>
+                    </dl>
+                    <a href="#">Refresh Data</a>
+                </div>
+            </div>
+            </div>
+        <div style="height:60px"/>         
+
+            </div>
+
+ </div>

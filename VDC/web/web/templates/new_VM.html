@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Create A New Virtual Manchine | RA-VDC</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/vc/getalltemplates", success: function (result) {
+                    var output = '';
+                    $.each(JSON.parse(result), function (index, value) {
+                        output += '<option data-value="' + value.uuid + '">' + value.name + '</option>';
+                    });
+                    $('#VMTEMPLIST').html(output);
+                }
+            });
+
+
+            $("#CreateVM").click(function () {
+                var VMName = $('#VMTEMPLIST').val();
+                var data = {};
+                data['vm_name'] = $('#vm_name').val();
+                data['template_name'] = VMName;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/vc/newvm",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function (result) {
+                        alert(result);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+    <form method="post">
+        {% if error %}
+        <p class=error style="color:red"><strong>Error:</strong> {{ error }}</p>
+        {% endif %}
+        <p>
+            <strong>DNS NAME</strong><br />
+            <input name="VM_NAME" type="text" required autofocus></input>
+        </p>
+        <p>
+            <strong>IMAGE</strong><br />
+            <select id="VMTEMPLIST" name="VMTemplateList">
+            </select>
+        </p>
+        <p>
+            <strong>SIZE</strong><br />
+            <select name="VM_SIZE" name="VMSizeList">
+            </select>
+        </p>
+        <p>
+            <strong>USER NAME</strong><br />
+            <input name="VM_USER_NAME" type="text" required></input>
+        </p>
+        <p>
+            <strong>PASSWORD</strong><br />
+            <input name="VM_PASSWORD" type="password" required></input>
+        </p>
+        <p>
+            <strong>CONFIRM</strong><br />
+            <input name="VM_CONFIRM_PASSWORD" type="password" required></input>
+        </p>
+        <br />
+        <input type="submit" value="CREATE A VIRTUAL MANCHINE"></input>
+    </form>
+</body>
+</html>

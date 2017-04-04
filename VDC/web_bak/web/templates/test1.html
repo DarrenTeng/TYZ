@@ -1,0 +1,42 @@
+<html>
+<header>
+<style>
+div 
+{
+
+}
+div.debug1
+{
+	visibility: hidden;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#test").click(function () {
+
+
+            var data = {};
+            data['IP'] = "1.1.1.1";
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json;charset=UTF-8',
+                url: "/GetRDP", success: function (result) {
+                    alert(result);
+                }
+            });
+        });
+    });
+
+</script>
+</header>
+<body>
+
+<button id="test">test </button>
+
+</body> 
+</html>

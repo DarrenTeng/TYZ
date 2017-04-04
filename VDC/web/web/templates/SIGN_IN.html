@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<style type="text/css">
+	/* parent */
+	body {
+		margin:0;
+		font-family: Helvetica, arial, sans-serif; 
+		font-size: 13px; 
+		color: #878787; 
+		font-weight: normal;
+		overflow-x: hidden;
+		background-color: #31403f;
+		background-color:transparent;
+		background-position: 0 0, 50% 50%;
+		background-repeat: no-repeat !important;
+		background-size:100%;
+		background-image: url("http://bgfons.com/upload/clouds_texture2909.jpg");
+		-webkit-font-smoothing: antialiased; -moz-font-smoothing: antialiased; font-smoothing: antialiased;
+	}
+	.body-wrapper {width: 100%; height 100%; padding-top: 0; background-color:transparent !important; min-width:1050px; margin:0 auto; margin-bottom: 0}
+
+	/* login-page */
+	.VDC_form_login {width: 310px; margin: 0 auto;}
+	#bg-overlay {position: fixed; width: 100%; height: 100%; opacity: 0.30; background-color: #31403f;}
+	#mid-row {position: fixed; width: 100%; min-width: 1050px; padding:0 0 0 0;}
+	#login-wrapper {width:560px; height:325px; margin:0 auto; display:block; text-align:center;}
+	#logo-wrapper {width: 230px; height: 100px; margin: 0 auto 100px;}
+	#logo_img {width: 220px; height: 150px; }
+	#bottom-row {position:fixed; width: 100%; min-width: 1050px; text-align:center; position:fixed; bottom:5px; left:center}
+	#bottom-wrapper {width: 650px; height: 47px; color: white; margin: 0 auto; font-family: Verb; font-size: 14px; font-weight: 400; line-height: 16px; }
+	.bottom-link {color: white !important; font:14px "Verb","Helvetica","Arial", sans-serif; text-decoration: none !important; }
+	.bottom-link-space {margin-left: 12px; margin-right: 12px;}
+
+	/* media query for mobile device */
+	#form-title {margin-bottom: 23px; color: white; font:32px "Verb Regular","Helvetica","Arial", sans-serif;}
+	#form-footer {margin-top: 21px; color: white; font:14px "Verb Regular","Helvetica","Arial", sans-serif;}
+	#fieldset-signup {width: 310px; height: 114px; margin: 0 auto;}
+	.submit-btn {width: 308px; height: 37px; color: white; border: 1px solid white; border-radius: 2px; margin: 14px auto; cursor: pointer; background-color: transparent}
+	.submit-btn-text { display: block; margin-top: 11px;	font:14px "Verb Regular","Helvetica","Arial", sans-serif;}
+	.form-input {width: 280px !important; height: 36px !important; font:14px "Verb Regular","Helvetica","Arial", sans-serif !important;}
+	.forgot-pwd {margin-top: 5px; color: white !important; font:14px "Verb Regular","Helvetica","Arial", sans-serif;}
+	#forgot-pwd-img {position: relative; cursor: pointer; left: 130px; top: -41px;}
+	#forgot-pwd-tooltip {display: none; position: relative; width: 180px; height: 38px; left: 50px; top: -82px; border-radius : 2px; background-repeat: no-repeat; background-image: url("https://fastly.hightailcdn.com/web/en_US/theme_default/images/content/tooltipbg.png"); }
+	#forgot-pwd-tooltip-text { display: block; text-align: center; margin-top: 9px; color: #444444; font:12px "Verb Regular Italic","Helvetica","Arial", sans-serif;}
+	.inpDiv {width: 310px; margin: 0 auto 0;}
+	
+	/* fieldset-signup for pro signup */
+	.hightail-signup-body #fieldset-signup input,
+	.hightail-signup-body #fieldset-login input {
+	  height: 42px;
+	  padding: 0px 14px;
+	  font-size: 16px;
+	  font-weight: lighter;
+	  line-height: 24px;
+	  border: 1px solid rgb(207, 207, 207);
+	  border-radius: 4px;
+	  -moz-border-radius: 4px;
+	  -webkit-border-radius: 4px;
+	}
+	#form-field-wrapper input{
+	  height: 42px;
+	  padding: 0px 14px;
+	  font-size: 16px;
+	  font-weight: lighter;
+	  line-height: 24px;
+	  border: 1px solid rgb(207, 207, 207);
+	  border-radius: 4px;
+	  -moz-border-radius: 4px;
+	  -webkit-border-radius: 4px;
+	}
+	#VDC_btn_login{
+	  margin-top: -35px;
+	}
+	</style>
+    <title>Sign In | RA-VDC </title>
+</head>
+<body>
+<div class="body-wrapper">
+<div id="bg-overlay"></div>
+<div id="mid-row">
+	<div id="login-wrapper">
+		<div style="height: 60px;"></div>
+		<div id="logo-wrapper">
+			<a href="http://rain.ra.rockwell.com"><img id="logo_img" src="../static/images/vmware-logo-220x150.png" longdesc=""></a>
+		</div>
+		<div id="form-title">Sign in to your account</div>
+		<form method="post" id="VDC_form_login" action="" >
+			{% if error %}
+				<p class=error style="color:red"><strong>Error:</strong> {{ error }}</p>
+			{% endif %}
+			{% if note %}
+				<p class=error style="color:red"><strong>Note:</strong> {{ note }}</p>
+			{% endif %}
+				<div id="form-field-wrapper">
+					<div class="inpDiv">
+						<input class="form-input" style="border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-top-left-radius: 2px; -moz-border-top-left-radius: 2px; -webkit-border-top-left-radius: 2px; border-top-right-radius: 2px; -moz-border-top-right-radius: 2px; -webkit-border-top-right-radius: 2px;"
+							   name="username" id="VDC_username" type="text" style="color:#9e9e9e" placeholder="User Name" class="translate" value="" autofocus required/>
+					</div>
+					<div class="inpDiv" style="margin-bottom:13px;">
+						<input class="form-input" style="border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-bottom-left-radius: 2px; -moz-border-bottom-left-radius: 4px; -webkit-border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; -moz-border-bottom-right-radius: 2px; -webkit-border-bottom-right-radius: 2px;"
+							   name="password" id="VDC_password" type="password" placeholder="Password" autocomplete="off" required/>
+					</div>
+					<a class="forgot-pwd" title="Forgot your password?" href="/reset_password">
+						<img id="forgot-pwd-img" src="https://fastly.hightailcdn.com/web/en_US/theme_default/images/content/icons/circle-question.png">
+					</a>
+				</div>
+				<div class="inpDiv">
+					<div id="VDC_btn_login"><input class="submit-btn" type="submit" name="operation" value="SIGN IN"></input></div>
+					<div id="form-footer">DON'T HAVE AN ACCOUNT? <a href="/signup" style="color: #f15b41; text-decoration: none;">SIGN UP</a></div>
+				</div>
+		</form>
+	</div>
+</div>
+	
+<div id="bottom-row">
+		<div id="bottom-wrapper">
+			<a class="bottom-link" href="/signup">SIGN UP</a>
+			<span class="bottom-link-space" >|</span>
+			<a class="bottom-link" href="/terms">TERMS & PRIVACY</a>
+			<span class="bottom-link-space" >|</span>
+			<a class="bottom-link" href="http://rain.ra.rockwell.com/">HELP</a>
+		</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vdc virtual machine list</title>
+	</head>
+	<body align="center">
+		<div id="container" style="width:1200px;margin:0 auto;">
+		 
+			<div id="header" style="background-color:#FFA500;">
+				<h1 style="margin-bottom:0;">Virtual Design Center</h1>
+			</div>
+			 
+			<div id="menu" style="background-color:#FFD700;height:600px;width:200px;float:left;">
+				<b>All Items</b><br>
+				Virtual Machines<br>
+				......
+			</div>
+			 
+			<div id="content" style="background-color:#EEEEEE;height:600px;width:1000px;float:left;">
+				<table border="1">
+					<tr>
+					<th>Name</th>
+					<th>Status</th>
+					<th>Owner</th>
+					<th>uuid</th>
+					<th>hostname</th>
+					<th>ip</th>
+					<th>account</th>
+					</tr>
+					{% for vm in VMs %}
+						<tr>
+							<td>{{vm.name}}</td>
+							<td>{{vm.status}}</td>
+							<td>{{vm.owner}}</td>
+							<td>{{vm.uuid}}</td>
+							<td>{{vm.hostname}}</td>
+							<td>{{vm.ip}}</td>
+							<td>{{vm.account}}</td>
+						</tr>
+					{% endfor %}
+					
+				</table>
+				
+			</div>
+			
+			<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+				Version Control © vdc.com
+			</div>
+		 
+		</div>
+	 
+	</body>
+</html>

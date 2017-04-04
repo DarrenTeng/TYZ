@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "webroot", "Webroot\webroot.pyproj", "{20C08814-167E-43B1-BDBC-E478441B3A60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20C08814-167E-43B1-BDBC-E478441B3A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C08814-167E-43B1-BDBC-E478441B3A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C08814-167E-43B1-BDBC-E478441B3A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C08814-167E-43B1-BDBC-E478441B3A60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.108.186.131:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Webroot\\webroot.pyproj
+		SccProjectName1 = Webroot
+		SccLocalPath1 = Webroot
+	EndGlobalSection
+EndGlobal

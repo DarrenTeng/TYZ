@@ -1,0 +1,13 @@
+C:\Work\Code\VDC\web\bin\Microsoft.PythonTools.WebRole.dll
+C:\Work\Code\VDC\web\obj\Debug\attach_server.py
+C:\Work\Code\VDC\web\obj\Debug\visualstudio_py_debugger.py
+C:\Work\Code\VDC\web\obj\Debug\visualstudio_py_repl.py
+C:\Work\Code\VDC\web\obj\Debug\visualstudio_py_util.py
+C:\Work\Code\VDC\web\obj\Debug\__init__.py
+C:\Work\Code\VDC\web\obj\Debug\__main__.py
+C:\Work\Code\VDC\web\bin\AzureSetup.cfg
+C:\Work\Code\VDC\web\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Work\Code\VDC\web\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Work\Code\VDC\web\bin\wfastcgi.py
+C:\Work\Code\VDC\web\obj\Debug\web.config
+C:\Work\Code\VDC\web\obj\Debug\web.debug.config
